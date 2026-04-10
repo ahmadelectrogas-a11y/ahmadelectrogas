@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AhmadGasCenter
 
 AhmadGasCenter is a web-based application for managing a gas cylinder shop.  
@@ -22,3 +23,6 @@ The project is built with **Django** (Backend) and **Tailwind CSS** (Frontend).
 - **Other**: Pillow (for images), Django pagination, Django search
 
 ---
+=======
+# ahmadelectrogas
+>>>>>>> 92eee2e6387128321b4d5d658a986d249bc341bc
