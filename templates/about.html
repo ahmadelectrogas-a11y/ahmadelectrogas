@@ -1,0 +1,239 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}About | Ahmad ElectroGas{% endblock  %}
+
+{% block content  %}
+<div class="md:max-w-[1270px] mx-auto px-0.5">
+<section class="container mx-auto px-2 py-2 sm:px-4 sm:py-4">
+  <div class="bg-[#F3F6FA] py-7 px-1 sm:px-8 lg:px-12 rounded-lg shadow-xl text-center max-w-4xl mx-auto mt-10 mb-10">
+    <h1 class="text-3xl flex justify-center sm:text-4xl md:text-6xl font-extrabold ">
+      <span class="word-type-container1 gulzar-regular py-2 text-[#0E6BA8] pt-8 sm:p-6 sm:pt-10 md:pt-16">خُوش آمدید 
+  اَحمد الیکٹرو گیس مریدوالا</span>
+    </h1>   
+</div>
+
+          
+          <div class="bg-[#071724]  text-[#E6F6FF] p-3 sm:p-10 my-5 rounded-lg">
+              <h1 class= "gulzar-regular text-center text-[16px] sm:text-3xl sm:text-[40px]">تباہی ہے اُن لوگوں کے لیے جو ناپ تول میں کمی کرتے ہیں </h1>
+              <div class="text-end mr-1 opacity-75 sm:mr-6 text-[15px] sm:text-xl">
+                <h1 class="font-bold text-center gulzar-regular mt-5">
+(سورۃ المطففین 83:1)</h1>
+              </div>
+          </div>
+<div>
+  <h1 class="border-b-4 opacity-40 border-gray-600" style="
+  margin-top:52px; margin-bottom:52px;"></h1>
+</div>
+    <div class="flex flex-col md:flex-row items-center gap-12 my-4">
+      <!-- IMAGE COLUMN -->
+      <div class="md:w-1/2">
+        <div class="relative group mx-auto rounded-2xl overflow-hidden">
+        <a href="{% static 'image/aboutlogo.png' %}">
+
+          <img
+          src="{% static 'image/aboutlogo.png' %}"
+          alt="Ahmad ElectroGas Facility"
+          class="reveal transform translate-y-70 opacity-0 transition-all duration-1400 ease-out rounded-lg shadow-lg"
+          />
+           <div class="absolute inset-0 bg-[#e20219a1] opacity-70 flex items-center justify-center
+                  translate-y-[-100%] group-hover:translate-y-0 
+                  transition-transform duration-300 ease-in-out">
+        <!-- Camera Icon -->
+         
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+             stroke-width="2" stroke="currentColor"
+             class="w-12 h-12 text-white">
+          <path stroke-linecap="round" stroke-linejoin="round" 
+                d="M3 7h3l2-3h8l2 3h3v13H3V7z" />
+          <circle cx="12" cy="13" r="4" />
+        </svg>
+      </div>
+        </a>
+      </div>
+      </div>
+
+      <!-- TEXT COLUMN -->
+      <div class="md:w-1/2 space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 uppercase md:text-left">
+          The Clear Choice!
+        </h2>
+        <p class="text-[#596674] leading-relaxed">
+          Ahmad ElectroGas with its presence in the Pakistani Kitchens for more than three decades has
+          constantly endeavored to give homemakers the latest in technology and making cooking a
+          luxurious and pleasurable experience. Our continuous pursuit of the true understanding of
+          customer’s needs and necessities, have made us constantly innovative. Always exploring
+          the possibility of new designs, technologies, features and innovations with great stress
+          on R &amp; D, Ahmad ElectroGas has established its leadership in creating better products for
+          its customers.
+        </p>
+        <p class="text-[#596674] leading-relaxed">
+          Our vast network of dealers and service centers across the country ensures unfailing service
+          and support for ultimate consumer satisfaction.
+        </p>
+        <p class="text-[#596674] leading-relaxed">
+          Ahmad ElectroGas’s products promise more efficient working and hassle-free life. It is this promise,
+          and its utmost fulfilment, that has made Ahmad ElectroGas a trusted and loved household brand in
+          the country making it clearly the clear choice for the aspiring customers.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <ul class="list-disc list-inside space-y-2 text-[#596674]">
+            <li>3 Company Showrooms</li>
+            <li>1 Manufacturing &amp; Assembly Plants</li>
+            <li>100+ Exhibitions in Various Areas</li>
+          </ul>
+          <ul class="list-disc list-inside space-y-2 text-[#596674]">
+            <li>Most Trusted Brand Nationwide</li>
+            <li>Head Office in Muridwala.
+
+District Faisalabad, Punjab PAKISTAN</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div>
+  <h1 class="border-b-4 opacity-40 border-gray-600 mb-4 sm:mt-12 sm:mb-12"></h1>
+</div>
+  <div class="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-8 p-3 sm:p-8 mt-3">
+  <!-- Timeline -->
+  <div class="flex-1 max-w-2xl">
+    <h1 class="text-3xl font-bold mb-6">HISTORY OF Ahmad ElectroGas</h1>
+
+   <!-- 2006: OPEN by default -->
+<div class="border-b border-gray-300 py-4">
+  <button
+    class="flex items-center w-full text-left focus:outline-none"
+    onclick="toggleContent(this)"
+  >
+    <span class="icon text-lg font-bold w-8 h-8 flex items-center justify-center bg-black text-white mr-2">-</span>
+    <span class="text-3xl font-bold">1992</span>
+  </button>
+  <div class="content my-4 text-black">
+Ahmad ElectroGas embarked on its journey in 1992, starting as a small distribution business with a passion for delivering quality products to the community.
+  </div>
+</div>
+
+<!-- 2008: CLOSED by default -->
+<div class="border-b border-gray-300 py-4">
+  <button
+    class="flex items-center w-full text-left focus:outline-none"
+    onclick="toggleContent(this)"
+  >
+    <span class="icon text-lg font-bold w-8 h-8 flex items-center justify-center bg-black text-white mr-2">+</span>
+    <span class="text-3xl font-bold">2005</span>
+  </button>
+  <div class="content my-4 text-black hidden">
+    Over the next decade,after 2005 we solidified our foundation and expanded our reach. A significant milestone came when we became the authorized dealer for two renowned national brands: Domesto Home Appliances and Golden Fuji. This partnership enabled us to offer a wider range of top-quality products to our customers.
+  </div>
+</div>
+<!-- 2008: CLOSED by default -->
+<div class="border-b border-gray-300 py-4">
+  <button
+    class="flex items-center w-full text-left focus:outline-none"
+    onclick="toggleContent(this)"
+  >
+    <span class="icon text-lg font-bold w-8 h-8 flex items-center justify-center bg-black text-white mr-2">+</span>
+    <span class="text-3xl font-bold">2020</span>
+  </button>
+  <div class="content my-4 text-black hidden">
+    After three decades, from 2020, Ahmad ElectroGas has evolved into a leading distributor of Home Appliances, partnering with multiple esteemed companies to bring the best products to your doorstep. Our commitment to excellence, customer satisfaction, and innovation continues to drive our growth and success.
+  </div>
+</div>
+<!-- 2008: CLOSED by default -->
+<div class="border-b border-gray-300 py-4">
+  <button
+    class="flex items-center w-full text-left focus:outline-none"
+    onclick="toggleContent(this)"
+  >
+    <span class="icon text-lg font-bold w-8 h-8 flex items-center justify-center bg-black text-white mr-2">+</span>
+    <span class="text-3xl font-bold">2025</span>
+  </button>
+  <div class="content my-4 text-black hidden">
+    Now we continue to evolve, we're excited to launch our website, allowing us to deliver our products directly to your doorstep.
+  </div>
+</div>
+   
+   
+    <!-- Add more years similarly -->
+  </div>
+
+  <!-- Image -->
+  <div class="flex-1 max-w-lg">
+    
+        <div class="relative group mx-auto rounded-2xl overflow-hidden">
+    <a href="{% static 'image/logo.jpg' %}">
+    <img
+      src="{% static 'image/logo.jpg' %}"
+      alt="Worker"
+      class="w-full h-auto rounded shadow reveal transform translate-y-70 opacity-0 transition-all duration-1400 ease-out "
+    />
+     <div class="absolute inset-0 bg-[#e20219a1] opacity-70 flex items-center justify-center
+                  translate-y-[-100%] group-hover:translate-y-0 
+                  transition-transform duration-300 ease-in-out">
+        <!-- Camera Icon -->
+         
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+             stroke-width="2" stroke="currentColor"
+             class="w-12 h-12 text-white">
+          <path stroke-linecap="round" stroke-linejoin="round" 
+                d="M3 7h3l2-3h8l2 3h3v13H3V7z" />
+          <circle cx="12" cy="13" r="4" />
+        </svg>
+      </div>
+    </a>
+  </div>
+  </div>
+</div>
+  </section>
+</div>
+{% endblock  %}
+
+{% block javascript %}
+<script>
+   setTimeout(() => {
+    document.getElementById("delayedText").classList.remove("hidden");
+  }, 2250); // 5000 milliseconds = 5 seconds
+  {% comment %} typing {% endcomment %}
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.remove("translate-y-70", "opacity-0");
+          entry.target.classList.add("translate-y-0", "opacity-100");
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll(".reveal").forEach(el => {
+        observer.observe(el);
+      });
+    });
+
+    //History
+  function toggleContent(button) {
+  const icon = button.querySelector('.icon');
+  const content = button.parentElement.querySelector('.content');
+  const isHidden = content.classList.contains('hidden');
+
+  // Close all other open sections
+  const allContents = document.querySelectorAll('.content');
+  const allIcons = document.querySelectorAll('.icon');
+  allContents.forEach(c => c.classList.add('hidden'));
+  allIcons.forEach(i => i.textContent = '+');
+
+  if (isHidden) {
+    // Open this one
+    content.classList.remove('hidden');
+    icon.textContent = '-';
+  } else {
+    // Keep it closed
+    content.classList.add('hidden');
+    icon.textContent = '+';
+  }
+}
+
+
+  </script>
+  {% endblock  %}

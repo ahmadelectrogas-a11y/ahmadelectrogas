@@ -1,0 +1,539 @@
+{% extends "base.html" %}
+{% load static  %}
+
+
+{% block content %}
+<div class="w-full relative"> <!-- ✅ added relative here -->
+  <!-- Carousel -->
+ <div id="default-carousel" class="relative max-w-lvw " data-carousel="slide">
+    <!-- Carousel wrapper -->
+    <div class="relative h-44 overflow-hidden sm:h-56 md:h-80 lg:h-96 xl:h-[720px]">
+      <!-- Item 1 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item>
+        <img src="{% static 'image/crousel1.jpg' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      <!-- Item 2 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item>
+        <img src="{% static 'image/crousel2.jpg' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+      <!-- Item 3 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item>
+        <img src="{% static 'image/crousel3.jpg' %}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+      </div>
+    </div>
+    <!-- Slider indicators -->
+    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+    </div>
+    <!-- Slider controls -->
+    <button type="button" class="absolute top-0 start-0 z-31 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+            </svg>
+            <span class="sr-only">Previous</span>
+        </span>
+    </button>
+    <button type="button" class="absolute top-0 end-0 z-31 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg>
+            <span class="sr-only">Next</span>
+        </span>
+    </button>
+</div>
+<div class="absolute top-[18%] sm:top[29%]  md:top-[26%] lg:top-[27%] xl:top-[17%] left-[47%]">
+<section class="absolute inset-0 flex flex-col items-center justify-center text-center z-20 px-4">
+    <div class="bg-[#F3F6FA]/80 py-0.5 sm:py-2.5 md:py-3.5 lg:py-10 p px-2 sm:px-8 lg:px-12 border-2 border-[#E6EEF6] rounded-lg shadow-xl max-w-4xl">
+      <h1 class="text-[15px] sm:text-2xl  md:text-[30px] lg:text-[34px] xl:text-[40px] font-extrabold mb-0 sm:mb-2">
+        <span class="word-type-container text-[#0B2540]">Welcome to Ahmad <span class="text-[#00789a]">Electro</span>Gas</span>
+      </h1>
+      <h1 id="delayedText" class="text-[10px] sm:text[18px] md:text-[24px] lg:text-[27px] xl:text-3xl font-bold hidden">
+        <span class="word-type-container text-green-800">Our aim to provide quality products to your door step</span>
+      </h1>
+    </div>
+  </section>
+</div>
+</div>
+
+<div class="md:max-w-[1480px] mx-auto px-1.5">
+{% if discount %}
+<div>
+  <div class="my-8 sm:my-16 ">
+     <h2 class="bg-[#FFFFFF] border-2 border-[#F5F5F5] rounded-lg shadow-xl  max-w-fit mx-auto text-2xl sm:text-4xl md:text-5xl font-mono text-center font-bold p-2 sm:px-9 text-[#333333] uppercase tracking-wide">
+      {% if offermsg %}
+    
+      <span class="blinking font-mono text-center font-bold text-[#333333] uppercase  tracking-wide">{{ offermsg.0.name }}</span>
+      {% endif %}
+          
+        </h2>
+    
+</div>
+  
+  
+    <div class="mt-1 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-14">
+      {% for d in discount %}
+      {% with i=d.item %}
+      <div class="relative group overflow-hidden rounded-xl">
+        <div class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12  w-full bg-white border  border-gray-200 rounded-xl shadow-xl dark:bg-gray-800 dark:border-gray-700 {% if d.class %}{{ d.class }}{% endif %}">
+          <div class="h-80 overflow-hidden flex items-center rounded-t-xl justify-center relative mb-2">
+              <span class="bg-green-200 text-green-700 rounded-full font-bold px-2 text-sm absolute top-2 right-[10px] "> {{i.dist}}% OFF</span>
+              
+                <a href="/media/{{i.image}}" class="items-center">
+                    <img class="w-full h-full object-cover " src="/media/{{i.image}}" alt="product image"/>
+                </a>
+            </div>
+
+           <div class="px-1.5 sm:px-3.5 pb-5">
+              <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+                    <p class="text-xs sm:text-[10px] lg:text-[14px] xl:text-[19px]tracking-tight text-gray-900 dark:text-white line-clamp-3" style="
+    padding-left: 4px;
+">
+                        {{ i.desc|slice:":92" }}...
+                        <a href="{% url 'products' 'discount' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+                    </p>
+                </div>
+
+                <div class="flex items-center mt-2.5 mb-5">
+                    <div class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse">
+            {% for _ in "12345" %}
+            <svg
+              class="w-4 h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+         <span class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3">
+                        {{ i.rating }}
+                    </span>
+                </div>
+
+                <div class="flex flex-row justify-between">
+                    <div class="relative mt-3">
+                        <span class="absolute -bottom-5 text-[23px] px-2 font-bold text-red-900 before:content-[''] before:absolute before:top-1/2 before:left-0 before:w-full before:h-[2px] before:bg-current before:z-10">
+                            Rs.{{i.orgprice}}
+                        </span>
+                    </div>
+                    
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span class="text-[27px] items-center font-bold text-green-900">Rs.{{i.price}}</span>
+                    <button type="button" class="whatsapp-btn cursor-pointer mt-2 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800" data-product="{{ i.product_name }}" data-price="{{ i.price }}">
+                        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                            Shop Now
+                        </span>
+                    </button>
+                </div>
+                <span class="inline-block bg-{% if d.label == 'In Stock' %}green-200 text-green-700{% else %}blue-200 text-blue-700{% endif %} rounded-full px-2 py-1 text-xs sm:text-sm font-semibold mt-2">
+                    {{ d.label }}
+                </span>
+            </div>
+        </div>
+      
+<div class="absolute bottom-0 left-3 w-full p-4 transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'discount' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+        {% endwith %}
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="flex flex-col sm:flex-row items-center justify-center mx-auto my-2 md:my-7 text-center">
+    <p class="flex  items-center text-sm sm:text-2xl font-normal text-gray-500 dark:text-gray-400">
+      <div class="">
+        <span class="inline-flex p-1 me-3 bg-gray-200 rounded-full dark:bg-gray-600 w-6 h-6 items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M18.435 7.546A2.32 2.32 0 0 1 17.7 5.77a3.354 3.354 0 0 0-3.47-3.47 2.322 2.322 0 0 1-1.776-.736 3.357 3.357 0 0 0-4.907 0 2.281 2.281 0 0 1-1.776.736 3.414 3.414 0 0 0-2.489.981 3.372 3.372 0 0 0-.982 2.49 2.319 2.319 0 0 1-.736 1.775 3.36 3.36 0 0 0 0 4.908A2.317 2.317 0 0 1 2.3 14.23a3.356 3.356 0 0 0 3.47 3.47 2.318 2.318 0 0 1 1.777.737 3.36 3.36 0 0 0 4.907 0 2.36 2.36 0 0 1 1.776-.737 3.356 3.356 0 0 0 3.469-3.47 2.319 2.319 0 0 1 .736-1.775 3.359 3.359 0 0 0 0-4.908ZM8.5 5.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm3 9.063a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm2.207-6.856-6 6a1 1 0 0 1-1.414-1.414l6-6a1 1 0 0 1 1.414 1.414Z"/>
+            </svg>
+        </span>
+        <span>Get Discount per product </span>
+        </div>
+        <div>
+        <span><a href="discounts/" class="flex items-center ms-0 text-xl sm:text-2xl font-medium text-green-600 md:ms-1 md:inline-flex dark:text-blue-500 hover:font-semibold hover:underline">&nbsp;View More Discount products <svg style="margin-top: 3px;" class="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg></a></span></div>
+    </p>
+</div>
+{% endif %}
+<div class="flex flex-col lg:flex-row gap-6">
+{% if kitchen %}
+ <div class="w-full lg:w-1/2">
+<h2 class="font-bold py-2 text-3xl sm:text-4xl text-cyan-600 mb-4 text-center uppercase tracking-wide border-b-8 border-text-cyan-400">Kitchen Appliances
+</h2>
+  <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-2 gap-y-8 sm:gap-y-10 sm:grid-cols-2 xl:gap-x-14">
+ 
+  {% for i in kitchen %}
+  {% if forloop.first or forloop.last %}
+  <div class="relative group overflow-hidden rounded-xl">
+  <div
+  class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12  w-full bg-white border  border-gray-200 rounded-xl shadow-xl  dark:bg-gray-800 dark:border-gray-700"
+  >
+      <div
+        class="h-55 sm:h-80 overflow-hidden flex items-center justify-centerd-t-xl my-0.5"
+      >
+        <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover "
+            src="/media/{{i.image}}"
+            alt="product image"
+          />
+        </a>
+      </div>
+
+       <div class="px-1.5 sm:px-3.5 pb-5">
+              <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+       <p class="text-xs sm:text-[10px] lg:text-[13px]   xl:text-[14px] tracking-tight text-gray-900 dark:text-white" style="
+    padding-left: 2px;
+">
+  <span class="desc-text"
+        data-desc="{{ i.desc|escapejs }}">
+    <!-- JS will populate this -->
+  </span>
+  <a href="{% url 'products' 'kitchen' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+</p>
+
+        
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+
+<div class="flex items-center gap-x-3 sm:justify-between">
+          <span class="text-[15px] sm:text-[16px] lg:text-xl xl:text-[27px] items-center font-bold {% if i.price > 2500 %} text-red-900 {%else%} text-green-900 {%endif%} "
+            >Rs.{{i.price}}</span
+          >
+          {% comment %} <button         
+            id="{{i.product_id}}" class="cart text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Shop</button
+          > {% endcomment %}
+         <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-1.5 xl:px-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+</div>
+
+{% if forloop.first %}
+      <span class="inline-block bg-green-200 text-green-700 rounded-full px-2 py-1 text-xs sm:text-sm font-semibold mt-2">In Stock</span>
+    {% elif forloop.last %}
+       <span class="inline-block bg-blue-200 text-blue-700 rounded-full px-2 py-1 text-xs sm:text-sm font-semibold mt-2">New</span>
+    {% endif %}
+      </div>
+    </div>
+      <div class="absolute bottom-0 left-3 w-full p-4 transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'kitchen' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+     {% endif %}
+    {% endfor %}
+  </div>
+</div>
+    {% endif %}
+    
+        
+{% if product %}
+<div class="w-full lg:w-1/2">
+<h2 class="font-bold py-2 text-3xl sm:text-4xl text-cyan-600 mb-4 text-center uppercase tracking-wide border-b-8 border-text-cyan-400">CAMPING STOVES
+</h2>
+  <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-2 gap-y-8 sm:gap-y-10 sm:grid-cols-2 xl:gap-x-14">
+   
+  {% for i in product %}
+  {% if forloop.first or forloop.last %}
+  <div class="relative group overflow-hidden rounded-xl">
+  <div
+  class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12  w-full bg-white border  border-gray-200 rounded-xl shadow-xl  dark:bg-gray-800 dark:border-gray-700"
+  >
+      <div
+        class="h- sm:h-80 overflow-hidden flex items-center justify-center rounded-t-xl"
+      >
+        <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover "
+            src="/media/{{i.image}}"
+            alt="product image"
+          />
+        </a>
+      </div>
+
+    <div class="px-1.5 sm:px-3.5 pb-5">
+              <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+      
+      <p class="text-xs sm:text-[10px] lg:text-[13px] xl:text-[14px] tracking-tight text-gray-900 dark:text-white" style="
+    padding-left: 2px;
+">
+  <span class="desc-text"
+        data-desc="{{ i.desc|escapejs }}">
+    <!-- JS will populate this -->
+  </span>
+  <a href="{% url 'products' 'product' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+</p>
+
+        
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+<div class="flex items-center gap-x-3 sm:justify-between">
+          <span class="text-[15px] sm:text-[16px] lg:text-xl xl:text-[27px] items-center font-bold {% if i.price > 2500 %} text-red-900 {%else%} text-green-900 {%endif%} "
+            >Rs.{{i.price}}</span
+          >
+          {% comment %} <button         
+            id="{{i.product_id}}" class="cart text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Shop</button
+          > {% endcomment %}
+         <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-1.5pxl:x-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+
+</div>
+
+{% if forloop.first %}
+      <span class="inline-block bg-green-200 text-green-700 rounded-full px-2 py-1 text-xs sm:text-sm font-semibold mt-2">In Stock</span>
+    {% elif forloop.last %}
+       <span class="inline-block bg-blue-200 text-blue-700 rounded-full px-2 py-1 text-xs sm:text-sm font-semibold mt-2">New</span>
+    {% endif %}
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-3 w-full p-4 transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'product' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+
+     {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+
+
+</div>
+    <div class="text-center mt-12">
+        <a href="/services" class="bg-[#FF8A00] hover:bg-[#E07400] text-white font-bold py-3 px-6 rounded-full">
+            View All Products
+        </a>
+    </div>
+
+<div class="md:max-w-[1280px] mx-auto">
+    
+    <iframe
+    class="responsive-iframe rounded-xl mt-5 mb-3"
+    src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1269131610914058%2F&show_text=false&width=560&t=0"
+    scrolling="no"
+    frameborder="0"
+    allowfullscreen="false"
+    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+  </iframe>
+  </div>
+    
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+  {% comment %} typing {% endcomment %}
+  setTimeout(() => {
+    document.getElementById("delayedText").classList.remove("hidden");
+  }, 3250); // 5000 milliseconds = 5 seconds
+  {% comment %} typing {% endcomment %}
+
+(function(){
+  // picks limits: mobile <640 -> 50, >=640 -> 92
+  const MOBILE_LIMIT = 50;
+  const DESKTOP_LIMIT = 92;
+  const mq = window.matchMedia('(min-width: 640px)');
+
+  function getLimit() {
+    return mq.matches ? DESKTOP_LIMIT : MOBILE_LIMIT;
+  }
+
+  function truncateText(text, limit) {
+    if (!text) return '';
+    if (text.length <= limit) return text;
+    // trim safely at last space to avoid cutting in middle of word (optional)
+    let substr = text.slice(0, limit);
+    const lastSpace = substr.lastIndexOf(' ');
+    if (lastSpace > Math.floor(limit * 0.6)) { // if reasonable space found
+      substr = substr.slice(0, lastSpace);
+    }
+    return substr + '...';
+  }
+
+  function applyTruncation() {
+    const limit = getLimit();
+    document.querySelectorAll('.desc-text').forEach(el => {
+      const full = el.dataset.desc || '';
+      // set using textContent to avoid XSS
+      el.textContent = truncateText(full.trim(), limit);
+    });
+  }
+
+  // debounce helper
+  function debounce(fn, wait) {
+    let t;
+    return function(...args) {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), wait);
+    };
+  }
+
+  // run on load
+  document.addEventListener('DOMContentLoaded', applyTruncation);
+
+  // run on resize (debounced)
+  window.addEventListener('resize', debounce(applyTruncation, 120));
+
+  // also listen to media query changes (faster than resize sometimes)
+  try {
+    mq.addEventListener('change', applyTruncation);
+  } catch(e) {
+    // older browsers fallback
+    mq.addListener(applyTruncation);
+  }
+})();
+
+ document.addEventListener("DOMContentLoaded", function () {
+    const productCards = document.querySelectorAll(".star-wrapper");
+
+    productCards.forEach(function (starWrapper) {
+      const ratingText = starWrapper.nextElementSibling?.textContent?.trim();
+      const rating = parseFloat(ratingText);
+
+      const stars = starWrapper.querySelectorAll("svg");
+
+      stars.forEach((star, index) => {
+        star.classList.remove("text-yellow-300", "text-gray-200");
+        if (rating >= index + 1) {
+          star.classList.add("text-yellow-300");
+        } else {
+          star.classList.add("text-gray-200");
+        }
+      });
+    });
+  });
+{% comment %} shop cart Logic {% endcomment %}
+if(localStorage.getItem('cart')== null){
+  var cart = {};
+}
+else{
+  cart=JSON.parse(localStorage.getItem('cart'));
+}
+$('.cart').click(function(){
+  var idstr = this.id.toString();
+  if(cart[idstr]!= undefined){
+    cart[idstr]+=1;
+  }
+  else{
+    cart[idstr]=1;
+  }
+  localStorage.setItem('cart',JSON.stringify(cart));
+});
+
+{% comment %} whatsapp {% endcomment %}
+
+  $(document).ready(function () {
+    $(".whatsapp-btn").click(function () {
+      var product = $(this).data("product");
+      var price = $(this).data("price");
+
+      var message = `Asslam-o-Alaikum! I want to buy this product:\n\nName: *${product}*\nPrice: Rs. *${price}*\n\nIs this available?.`;
+      var phone = "923356599132"; // 🔁 Replace with your WhatsApp number (without +)
+
+      var url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+  });
+// for search
+  function selectCategory(value, label) {
+    document.getElementById("categoryInput").value = value;
+    document.getElementById("dropdown-text").innerText = label;
+    document.getElementById("dropdown").classList.add("hidden");
+  }
+
+
+</script>
+
+<script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+
+{% endblock  %}
+

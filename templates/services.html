@@ -1,0 +1,874 @@
+{% extends "base.html" %} 
+{% block title %}Products | Ahmad ElectroGas {% endblock  %}
+{% block content %}
+
+<div class="md:max-w-[1480px] mx-auto px-1.5">
+<div class="">
+<div
+  class="mx-auto max-w-3xl px-2 py-6 sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8 font-sans"
+>
+<div >
+<form method="get" action="/search/" class="max-w-lg mx-auto">
+  <div class="flex">
+    <!-- Category dropdown -->
+    <input type="hidden" name="category" id="categoryInput" value="all">
+    <button id="multiLevelDropdownButton" onclick="document.getElementById('multi-dropdown').classList.toggle('hidden')" data-dropdown-toggle="multi-dropdown" class="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200" type="button">
+      <span id="dropdown-text">All categories</span>
+      <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+</svg>
+    </button>
+    <div id="multi-dropdown"
+    class="z-50 hidden  bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44"> 
+    <ul class="py-2 text-sm text-gray-700">
+       <li> <button type="button" onclick="selectCategory('all', 'All categories')" class="w-full px-4 py-2 hover:bg-gray-100 text-left">All categories</button></li>
+          <li class=""> <button id="doubleDropdownButton" data-dropdown-toggle="doubleDropdown" data-dropdown-placement="right-start" type="button" onclick="selectCategory('kitchen', 'Kitchen Appliances')" class="flex font-semibold items-center justify-between w-full px-4 py-2 hover:bg-gray-100 rtl:rotate-180">Kitchen Appliances<svg class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+  </svg></button>
+  <div
+          class=" ml-13 group-hover:block bg-transparent rounded-lg w-44 z-50">
+          <ul class="py-2 text-sm text-gray-700 w-fit">
+            <li><button type="button" onclick="selectCategory('hood', 'Hood')"
+                class="w-full px-4 py-2 hover:bg-gray-100 text-left">Hood</button></li>
+            <li><button type="button" onclick="selectCategory('built', 'Built in HOB')"
+                class="w-full px-4 py-2 hover:bg-gray-100 text-left">Built in HOB</button></li>
+            <li><button type="button" onclick="selectCategory('stove', 'Stove')"
+                class="w-full px-4 py-2 hover:bg-gray-100 text-left">Stove</button></li>
+          </ul>
+        </div>
+        </li>
+              
+           <li>
+        <button type="button" onclick="selectCategory('gas', 'Camping Stoves')"
+          class="w-full px-4 py-2 hover:bg-gray-100 text-left">Camping Stoves</button>
+      </li>
+           <li>
+        <button type="button" onclick="selectCategory('gyser', 'Instant Gyser')"
+          class="w-full px-4 py-2 hover:bg-gray-100 text-left">Instant Gyser</button>
+      </li>
+           <li>
+        <button type="button" onclick="selectCategory('regulator', 'Regulator')"
+          class="w-full px-4 py-2 hover:bg-gray-100 text-left">Regulator</button>
+      </li>
+           <li>
+        <button type="button" onclick="selectCategory('valves', 'Valves')"
+          class="w-full px-4 py-2 hover:bg-gray-100 text-left">Valves</button>
+      </li>
+           <li>
+        <button type="button" onclick="selectCategory('accessories', 'Accessories')"
+          class="w-full px-4 py-2 hover:bg-gray-100 text-left">Accessories</button>
+      </li>
+    </ul>
+</div>
+
+
+    <!-- Search input -->
+    <div class="relative w-full">
+      <input type="search" name="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border border-gray-300" placeholder="Search Items Now..." required />
+      <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  </div>
+</form>
+</div>
+<div>
+{% if query %}
+  {% if not product and not kitchen and not gyser and not regulator and not valves and not accessories %}
+    <p class="text-red-600 mt-4 font-semibold">
+      No results found for "{{ query }}" in "{{ category_label }}".
+    </p>
+  {% else %}
+    <p class="text-green-600 mt-4">
+      Showing results for "{{ query }}" in "{{ category_label }}"
+    </p>
+  {% endif %}
+{% endif %}
+
+</div>
+<div>
+
+{% if kitchen and category != 'gas' %}
+<div class="flex items-center justify-center  my-6">
+  <div class="h-1 bg-[#1f49cb] w-1/12 sm:w-1/4"></div>
+  <h2 class="text-xl sm:2xl lg:text-4xl font-bold text-green-600 px-4 uppercase tracking-wide">Kitchen Appliances</h2>
+  <div class="h-1 bg-[#1f49cb] w-1/12 sm:w-1/4"></div>
+</div>
+
+   <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-1 gap-y-6 sm:gap-y-10  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  xl:gap-x-4">
+   
+  {% for i in kitchen  %}
+  <div class="relative group overflow-hidden rounded-xl">
+  <div
+  class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12 w-full bg-white border  border-gray-200 rounded-xl shadow-xl dark:bg-gray-800 dark:border-gray-700"
+  >
+      <div
+        class="h-55 sm:h-80 overflow-hidden flex items-center justify-center rounded-t-xl"
+      >
+        <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover "
+            src="/media/{{i.image}}"
+            alt="product image"
+          />
+        </a>
+      </div>
+
+      <div class="px-1.5 sm:px-3.5 pb-5">
+         <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+        <p class="text-xs pl-1 lg:text-[14px] tracking-tight text-gray-900 dark:text-white line-clamp-3">
+          {{ i.desc|slice:":59" }}...
+          <a href="{% url 'products' 'kitchen' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+        </p>
+        
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-x-3 sm:justify-between">
+          <span class="text-lg sm:text-[20px] md:text-[22px] lg:text-[24px] items-center font-bold {% if i.price > 2500 %} text-red-900 {%else%} text-green-900 {%endif%} "
+            >Rs.{{i.price}}</span
+          >
+          {% comment %} <button         
+            id="{{i.product_id}}" class="cart text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Shop</button
+          > {% endcomment %}
+         <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+
+   </div>
+      </div>
+    </div>
+   <div class="absolute -bottom-6 left-3 w-full  transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'kitchen' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+    {% endfor %}
+  </div>
+  
+</div>
+<!-- your_template.html -->
+  
+<div class="flex justify-center gap-4 mt-4">
+  {% if kitchen.has_previous %}
+  <a href="?kitchen_page={{ kitchen.previous_page_number }}&gas_page={{ product.number }}&gyser_page={{ gyser.number }}&accessories_page={{ accessories.number }}&valves_page={{ valves.number }}&regulator_page={{ regulator.number }}"
+  class="px-4 py-2 flex items-center bg-gray-700 text-white rounded hover:bg-gray-800"><svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+  margin-top: 2.5px;
+  ">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+</svg> Prev</a>
+{% endif %}
+
+<span class="px-2 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded">
+  Page {{ kitchen.number }} of {{ kitchen.paginator.num_pages }}
+</span>
+
+{% if kitchen.has_next %}
+<a href="?kitchen_page={{ kitchen.next_page_number }}&gas_page={{ product.number }}&gyser_page={{ gyser.number }}&accessories_page={{ accessories.number }}&valves_page={{ valves.number }}&regulator_page={{ regulator.number }}"
+class="px-4 py-2 flex items-center bg-gray-700 text-white rounded hover:bg-gray-800">Next <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+margin-top: 2.5px;
+">
+<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg></a>
+{% endif %}
+{% endif %}
+</div>
+{% if product and category != 'kitchen' %}
+<div class="flex items-center justify-center my-6 ">
+  <div class="h-1 bg-[#1f49cb] w-1/12 sm:w-1/4"></div>
+  <h2 class="text-2xl sm:text-4xl font-bold text-red-800 px-4 uppercase tracking-wide">CAMPING STOVES</h2>
+  <div class="h-1 bg-[#1f49cb] w-1/12 sm:w-1/4"></div>
+</div>
+
+   <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-1 gap-y-6 sm:gap-y-10  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  xl:gap-x-4">
+   
+  {% for i in product %}
+  <div class="relative group overflow-hidden rounded-xl">
+  <div
+  class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12  w-full bg-white border  border-gray-200 rounded-xl shadow-xl dark:bg-gray-800 dark:border-gray-700"
+  >
+      <div
+        class="h-52 sm:h-80 overflow-hidden flex items-center justify-center rounded-t-xl"
+      >
+        <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover "
+            src="/media/{{i.image}}"
+            alt="product image"
+          />
+        </a>
+      </div>
+
+      <div class="px-1.5 sm:px-3.5 pb-5">
+         <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+        <p class="text-xs pl-1 lg:text-[14px] tracking-tight text-gray-900 dark:text-white line-clamp-3">
+          {{ i.desc|slice:":65" }}...
+          <a href="{% url 'products' 'product' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+        </p>
+        
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-x-3 sm:justify-between">
+          <span class="text-lg sm:text-[20px] md:text-[22px] lg:text-[24px] items-center font-bold {% if i.price > 2500 %} text-red-900 {%else%} text-green-900 {%endif%} "
+            >Rs.{{i.price}}</span
+          >
+          {% comment %} <button         
+            id="{{i.product_id}}" class="cart text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Shop</button
+          > {% endcomment %}
+         <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+
+             </div>
+      </div>
+    </div>
+    <div class="absolute -bottom-6 left-3 w-full  transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'product' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+    {% endfor %}
+  </div>
+  
+  <div class="flex justify-center gap-4 mt-4">
+    {% if product.has_previous %}
+    <a href="?gas_page={{ product.previous_page_number }}&kitchen_page={{ kitchen.number }}&gyser_page={{ gyser.number }}&accessories_page={{ accessories.number }}&valves_page={{ valves.number }}&regulator_page={{ regulator.number }}"
+    class="px-4 py-2 flex items-center  bg-gray-700 text-white rounded hover:bg-gray-800"><svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+    margin-top: 2.5px;
+    ">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg> Prev</a>
+  {% endif %}
+
+  <span class="px-2 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded">
+    Page {{ product.number }} of {{ product.paginator.num_pages }}
+  </span>
+
+  {% if product.has_next %}
+  <a href="?gas_page={{ product.next_page_number }}&kitchen_page={{ kitchen.number }}&gyser_page={{ gyser.number }}&accessories_page={{ accessories.number }}&valves_page={{ valves.number }}&regulator_page={{ regulator.number }}"
+  class="px-4 py-2 bg-gray-700 flex items-center text-white rounded hover:bg-gray-800">Next <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+  margin-top: 2.5px;
+  ">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg></a>
+{% endif %}
+</div>
+{% endif %}
+
+
+{% comment %} Gyser {% endcomment %}
+{% if gyser and category != 'gas' and category != 'kitchen'  %}
+<div class="flex items-center justify-center my-6">
+  <div class="h-1 bg-[#1f49cb] w-[14%] sm:w-1/4"></div>
+  <h2 class="text-2xl sm:text-4xl font-bold text-green-600 px-4 uppercase tracking-wide">Instant Gyser</h2>
+  <div class="h-1 bg-[#1f49cb] w-[14%] sm:w-1/4"></div>
+</div>
+
+   <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-1 gap-y-6 sm:gap-y-10  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  xl:gap-x-4">
+   
+  {% for i in gyser %}
+  <div class="relative group overflow-hidden rounded-xl">
+  <div
+  class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12  w-full bg-white border  border-gray-200 rounded-xl shadow-xl dark:bg-gray-800 dark:border-gray-700"
+  >
+      <div
+        class="h-55 sm:h-80 overflow-hidden flex items-center justify-center rounded-t-xl"
+      >
+        <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover "
+            src="/media/{{i.image}}"
+            alt="gyser image"
+          />
+        </a>
+      </div>
+
+      <div class="px-1.5 sm:px-3.5 pb-5">
+         <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+        <p class="text-xs pl-1 lg:text-[14px] tracking-tight text-gray-900 dark:text-white line-clamp-3">
+          {{ i.desc|slice:":65" }}...
+          <a href="{% url 'products' 'gyser' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+        </p>
+        
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-x-3 sm:justify-between">
+          <span class="text-lg sm:text-[20px] md:text-[22px] lg:text-[24px] items-center font-bold {% if i.price > 2500 %} text-red-900 {%else%} text-green-900 {%endif%} "
+            >Rs.{{i.price}}</span
+          >
+          {% comment %} <button         
+            id="{{i.product_id}}" class="cart text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Shop</button
+          > {% endcomment %}
+         <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+
+             </div>
+      </div>
+    </div>
+    <div class="absolute -bottom-6 left-3 w-full  transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'gyser' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+    {% endfor %}
+  </div>
+  
+  <div class="flex justify-center gap-4 mt-4">
+    {% if gyser.has_previous %}
+    <a href="?gyser_page={{ gyser.previous_page_number }}&kitchen_page={{ kitchen.number }}&gas_page={{ product.number }}&accessories_page={{ accessories.number }}&valves_page={{ valves.number }}&regulator_page={{ regulator.number }}"
+    class="px-4 py-2 flex items-center  bg-gray-700 text-white rounded hover:bg-gray-800"><svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+    margin-top: 2.5px;
+    ">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg> Prev</a>
+  {% endif %}
+
+  <span class="px-2 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded">
+    Page {{ gyser.number }} of {{gyser.paginator.num_pages }}
+  </span>
+
+  {% if gyser.has_next %}
+  <a href="?gyser_page={{ gyser.next_page_number }}&kitchen_page={{ kitchen.number }}&gas_page={{ product.number }}&accessories_page={{ accessories.number }}&valves_page={{ valves.number }}&regulator_page={{ regulator.number }}"
+  class="px-4 py-2 bg-gray-700 flex items-center text-white rounded hover:bg-gray-800">Next <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+  margin-top: 2.5px;
+  ">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg></a>
+{% endif %}
+</div>
+{% endif %}
+
+
+{% comment %} Regulator {% endcomment %}
+{% if regulator and category != 'gas' and category != 'kitchen'  %}
+<div class="flex items-center justify-center my-6">
+  <div class="h-1 bg-[#1f49cb] w-1/4 sm:w-[65%]"></div>
+  <h2 class="text-2xl sm:text-4xl font-bold text-red-800 px-4 uppercase tracking-wide">Regulator</h2>
+  <div class="h-1 bg-[#1f49cb] w-1/4 sm:w-[65%]"></div>
+</div>
+
+   <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-1 gap-y-6 sm:gap-y-10  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  xl:gap-x-4">
+   
+  {% for i in regulator %}
+  <div class="relative group overflow-hidden rounded-xl">
+  <div
+  class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12  w-full bg-white border  border-gray-200 rounded-xl shadow-xl dark:bg-gray-800 dark:border-gray-700"
+  >
+      <div
+        class="h-55 sm:h-80 overflow-hidden flex items-center justify-center rounded-t-xl"
+      >
+        <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover "
+            src="/media/{{i.image}}"
+            alt="regulator image"
+          />
+        </a>
+      </div>
+
+      <div class="px-1.5 sm:px-3.5 pb-5">
+         <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+        <p class="text-xs pl-1 lg:text-[14px] tracking-tight text-gray-900 dark:text-white line-clamp-3">
+          {{ i.desc|slice:":65" }}...
+          <a href="{% url 'products' 'regulator' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+        </p>
+        
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-x-3 sm:justify-between">
+          <span class="text-lg sm:text-[20px] md:text-[22px] lg:text-[24px] items-center font-bold {% if i.price > 2500 %} text-red-900 {%else%} text-green-900 {%endif%} "
+            >Rs.{{i.price}}</span
+          >
+          {% comment %} <button         
+            id="{{i.product_id}}" class="cart text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Shop</button
+          > {% endcomment %}
+         <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+
+             </div>
+      </div>
+    </div>
+    <div class="absolute -bottom-6 left-3 w-full  transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'regulator' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+    {% endfor %}
+  </div>
+  
+  <div class="flex justify-center gap-4 mt-4">
+    {% if regulator.has_previous %}
+    <a href="?regulator_page={{ regulator.previous_page_number }}&kitchen_page={{ kitchen.number }}&gas_page={{ product.number }}&gyser_page={{ gyser.number }}&accessories_page={{ accessories.number }}&valves_page={{ valves.number }}"
+    class="px-4 py-2 flex items-center  bg-gray-700 text-white rounded hover:bg-gray-800"><svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+    margin-top: 2.5px;
+    ">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg> Prev</a>
+  {% endif %}
+
+  <span class="px-2 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded">
+    Page {{ regulator.number }} of {{regulator.paginator.num_pages }}
+  </span>
+
+  {% if regulator.has_next %}
+  <a href="?regulator_page={{ regulator.next_page_number }}&kitchen_page={{ kitchen.number }}&gas_page={{ product.number }}&gyser_page={{ gyser.number }}&accessories_page={{ accessories.number }}&valves_page={{ valves.number }}"
+  class="px-4 py-2 bg-gray-700 flex items-center text-white rounded hover:bg-gray-800">Next <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+  margin-top: 2.5px;
+  ">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg></a>
+{% endif %}
+</div>
+{% endif %}
+{% comment %} Valves {% endcomment %}
+{% if valves and category != 'gas' and category != 'kitchen'  %}
+<div class="flex items-center justify-center my-6">
+  <div class="h-1 bg-[#1f49cb] w-1/4 sm:w-[65%]"></div>
+  <h2 class="text-2xl sm:text-4xl font-bold text-green-600 px-4 uppercase tracking-wide">Valves</h2>
+  <div class="h-1 bg-[#1f49cb] w-1/4 sm:w-[65%]"></div>
+</div>
+
+   <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-1 gap-y-6 sm:gap-y-10  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  xl:gap-x-4">
+   
+  {% for i in valves %}
+  <div class="relative group overflow-hidden rounded-xl">
+  <div
+  class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12  w-full bg-white border  border-gray-200 rounded-xl shadow-xl dark:bg-gray-800 dark:border-gray-700"
+  >
+      <div
+        class="h-55 sm:h-80 overflow-hidden flex items-center justify-center rounded-t-xl"
+      >
+        <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover "
+            src="/media/{{i.image}}"
+            alt="valves image"
+          />
+        </a>
+      </div>
+
+      <div class="px-1.5 sm:px-3.5 pb-5">
+         <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+        <p class="text-xs pl-1 lg:text-[14px] tracking-tight text-gray-900 dark:text-white line-clamp-3">
+          {{ i.desc|slice:":65" }}...
+          <a href="{% url 'products' 'valves' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+        </p>
+        
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-x-3 sm:justify-between">
+          <span class="text-lg sm:text-[20px] md:text-[22px] lg:text-[24px] items-center font-bold {% if i.price > 2500 %} text-red-900 {%else%} text-green-900 {%endif%} "
+            >Rs.{{i.price}}</span
+          >
+          {% comment %} <button         
+            id="{{i.product_id}}" class="cart text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Shop</button
+          > {% endcomment %}
+         <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+
+             </div>
+      </div>
+    </div>
+    <div class="absolute -bottom-6 left-3 w-full  transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'valves' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+    {% endfor %}
+  </div>
+  
+  <div class="flex justify-center gap-4 mt-4">
+    {% if valves.has_previous %}
+    <a href="?valves_page={{ valves.previous_page_number }}&kitchen_page={{ kitchen.number }}&gas_page={{ product.number }}&gyser_page={{ gyser.number }}&accessories_page={{ accessories.number }}&regulator_page={{ regulator.number }}"
+    class="px-4 py-2 flex items-center  bg-gray-700 text-white rounded hover:bg-gray-800"><svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+    margin-top: 2.5px;
+    ">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg> Prev</a>
+  {% endif %}
+
+  <span class="px-2 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded">
+    Page {{ valves.number }} of {{valves.paginator.num_pages }}
+  </span>
+
+  {% if valves.has_next %}
+  <a href="?valves_page={{ valves.next_page_number }}&kitchen_page={{ kitchen.number }}&gas_page={{ product.number }}&gyser_page={{ gyser.number }}&accessories_page={{ accessories.number }}&regulator_page={{ regulator.number }}"
+  class="px-4 py-2 bg-gray-700 flex items-center text-white rounded hover:bg-gray-800">Next <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+  margin-top: 2.5px;
+  ">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg></a>
+{% endif %}
+</div>
+{% endif %}
+{% comment %} Accessories {% endcomment %}
+{% if accessories and category != 'gas' and category != 'kitchen'  %}
+<div class="flex items-center justify-center my-6">
+  <div class="h-1 bg-[#1f49cb] w-1/4 sm:w-[65%]"></div>
+  <h2 class="text-2xl sm:text-4xl font-bold text-red-800 px-4 uppercase tracking-wide">Accessories</h2>
+  <div class="h-1 bg-[#1f49cb] w-1/4 sm:w-[65%]"></div>
+</div>
+
+   <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-1 gap-y-6 sm:gap-y-10  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  xl:gap-x-4">
+   
+  {% for i in accessories %}
+  <div class="relative group overflow-hidden rounded-xl">
+  <div
+  class=" transition-transform duration-500 ease-in-out group-hover:-translate-y-12  w-full bg-white border  border-gray-200 rounded-xl shadow-xl dark:bg-gray-800 dark:border-gray-700"
+  >
+      <div
+        class="h-55 sm:h-80 overflow-hidden flex items-center justify-center rounded-t-xl"
+      >
+        <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover "
+            src="/media/{{i.image}}"
+            alt="accessories image"
+          />
+        </a>
+      </div>
+
+      <div class="px-1.5 sm:px-3.5 pb-5">
+         <h2 class="font-bold text-sm mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+        <p class="text-xs pl-1 lg:text-[14px] tracking-tight text-gray-900 dark:text-white line-clamp-3">
+          {{ i.desc|slice:":65" }}...
+          <a href="{% url 'products' 'accessories' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+        </p>
+        
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+
+        <div class="flex items-center gap-x-3 sm:justify-between">
+          <span class="text-lg sm:text-[20px] md:text-[22px] lg:text-[24px] items-center font-bold {% if i.price > 2500 %} text-red-900 {%else%} text-green-900 {%endif%} "
+            >Rs.{{i.price}}</span
+          >
+          {% comment %} <button         
+            id="{{i.product_id}}" class="cart text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >Shop</button
+          > {% endcomment %}
+         <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+
+             </div>
+      </div>
+    </div>
+    <div class="absolute -bottom-6 left-3 w-full  transition-all duration-500 ease-in-out transform translate-y-full opacity-0 group-hover:-translate-y-[42px] group-hover:opacity-100 ">
+    <a href="{% url 'products' 'accessories' i.id %}" class="block text-center py-3 px-5 font-semibold  rounded-lg shadow-md mx-auto w-fit  bg-transparent border-2 border-gray-800 text-gray-800  hover:bg-gray-800 hover:text-white transition-colors duration-300 dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-gray-900">
+        Show Details
+    </a>
+</div>
+</div>
+    {% endfor %}
+  </div>
+  
+  <div class="flex justify-center gap-4 mt-4 mb-3">
+    {% if accessories.has_previous %}
+    <a href="?accessories_page={{ accessories.previous_page_number }}&kitchen_page={{ kitchen.number }}&gas_page={{ product.number }}&gyser_page={{ gyser.number }}&valves_page={{ valves.number }}&regulator_page={{ regulator.number }}"
+    class="px-4 py-2 flex items-center  bg-gray-700 text-white rounded hover:bg-gray-800"><svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+    margin-top: 2.5px;
+    ">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+        </svg> Prev</a>
+  {% endif %}
+
+  <span class="px-2 sm:px-4 py-2 bg-gray-200 text-gray-700 rounded">
+    Page {{ accessories.number }} of {{accessories.paginator.num_pages }}
+  </span>
+
+  {% if accessories.has_next %}
+  <a href="?accessories_page={{ accessories.next_page_number }}&kitchen_page={{ kitchen.number }}&gas_page={{ product.number }}&gyser_page={{ gyser.number }}&valves_page={{ valves.number }}&regulator_page={{ regulator.number }}"
+  class="px-4 py-2 bg-gray-700 flex items-center text-white rounded hover:bg-gray-800">Next <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" style="
+  margin-top: 2.5px;
+  ">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg></a>
+{% endif %}
+</div>
+{% endif %}
+
+</div>
+</div>
+</div>
+{% endblock %} 
+
+
+
+{% block javascript %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const productCards = document.querySelectorAll(".star-wrapper");
+
+    productCards.forEach(function (starWrapper) {
+      const ratingText = starWrapper.nextElementSibling?.textContent?.trim();
+      const rating = parseFloat(ratingText);
+
+      const stars = starWrapper.querySelectorAll("svg");
+
+      stars.forEach((star, index) => {
+        star.classList.remove("text-yellow-300", "text-gray-200");
+        if (rating >= index + 1) {
+          star.classList.add("text-yellow-300");
+        } else {
+          star.classList.add("text-gray-200");
+        }
+      });
+    });
+  });
+{% comment %} shop cart Logic {% endcomment %}
+
+if(localStorage.getItem('cart')== null){
+  var cart = {};
+}
+else{
+  cart=JSON.parse(localStorage.getItem('cart'));
+}
+$('.cart').click(function(){
+  console.log("clicked");
+  var idstr = this.id.toString();
+  console.log(idstr);
+  if(cart[idstr]!= undefined){
+    cart[idstr]+=1;
+  }
+  else{
+    cart[idstr]=1;
+  }
+  console.log(cart);
+  localStorage.setItem('cart',JSON.stringify(cart));
+});
+
+{% comment %} whatsapp {% endcomment %}
+
+  $(document).ready(function () {
+    $(".whatsapp-btn").click(function () {
+      var product = $(this).data("product");
+      var price = $(this).data("price");
+
+      var message = `Asslam-o-Alaikum! I want to buy this product:\n\nName: *${product}*\nPrice: Rs. *${price}*\n\nIs this Available.`;
+      var phone = "923356599132"; // 🔁 Replace with your WhatsApp number (without +)
+
+      var url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+  });
+// for search
+ function selectCategory(value, label) {
+    document.getElementById("categoryInput").value = value;
+    document.getElementById("dropdown-text").innerText = label;
+
+    // Hide the main dropdown
+    document.getElementById("multi-dropdown").classList.add("hidden");
+  }
+
+</script>
+
+<script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+
+
+{% endblock %}

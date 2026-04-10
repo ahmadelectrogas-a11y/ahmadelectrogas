@@ -1,0 +1,225 @@
+{% extends "index.html" %}
+
+{% block title %}Discount | Ahmad ElectroGas{% endblock  %}
+
+{% block content  %}
+<div class="md:max-w-[1480px] mx-auto px-1.5">
+<div class='p-0.5'>
+    <div class="flex items-center justify-center  my-6 sm:my-14">
+  <div class="h-1 bg-[#1f49cb] w-1/12 sm:w-1/4"></div>
+  <h2 class="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-green-600 px-4 uppercase tracking-wide">FEATURED PRODUCTS</h2>
+  <div class="h-1 bg-[#1f49cb] w-1/12 sm:w-1/4"></div>
+</div>
+
+
+
+   <div class="mt-1 grid grid-cols-2 gap-x-2 sm:gap-x-2 gap-y-6 sm:gap-y-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  2xl:gap-x-4 ">
+   
+    {% for i in discount %}
+    <div
+      class="w-full bg-white border my-3 border-gray-200 rounded-xl shadow- relative dark:bg-gray-800 dark:border-gray-700"
+    >
+    <div
+        class="h-53 sm:h-80 overflow-hidden flex items-center justify-center rounded-t-xl"
+      >
+    <span class="bg-green-200 text-green-700 rounded-full font-bold px-2 text-sm absolute top-1.5 right-1 sm:right-[18px] "> {{i.dist}}% OFF</span>
+              
+             <a href="/media/{{i.image}}" class="items-center">
+          <img
+            class="w-full h-full object-cover hover:opacity-75"
+            src="/media/{{i.image}}"
+            alt="product image"
+          />
+        </a>
+      </div>
+
+            <div class="px-1 sm:px-3.5 pb-5">
+         <h2 class="font-bold text-sm px-0.5 mt-1 mb-1 sm:text-xl">{{i.product_name}}</h2>
+          <div class="h-14 sm:h-18 overflow-hidden mb-3">
+    
+        <p class="text-xs sm:text-[16px] tracking-tight text-gray-900 dark:text-white">
+  <span class="desc-text"
+        data-desc="{{ i.desc|escapejs }}">
+    <!-- JS will populate this -->
+  </span>
+  <a href="{% url 'products' 'discount' i.id %}" class="text-blue-600 hover:underline"> See details</a>
+</p>    
+      
+    </div>
+        <div class="flex items-center mt-1 mb-2 sm:mt-2.5 sm:mb-5">
+          <div
+            class="star-wrapper flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            {% for _ in "12345" %}
+            <svg
+              class="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            {% endfor %}
+          </div>
+          <span
+            class="rating-value bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm ms-3"
+          >
+            {{ i.rating }}
+          </span>
+        </div>
+
+        <div class="flex flex-row justify-between ">
+        <div class="relative mt-3">
+  <span class="absolute -bottom-1.5 sm:-bottom-5 text-[14px] sm:text-xl px-2 font-bold
+         text-red-900 
+        before:content-[''] before:absolute before:top-[45%] sm:before:top-[50%] before:left-0 before:w-full before:h-[1px] sm:before:h-[2px] before:bg-current before:z-10">
+    Rs.{{i.orgprice}}
+  </span>
+        </div>
+
+</div>
+        <div class="flex items-center justify-between">
+          <span class="text-lg sm:text-[20px] md:text-[22px] lg:text-[24px] items-center font-bold  text-green-900 "
+            >Rs.{{i.price}}</span
+          >
+          <button type="button" class="whatsapp-btn cursor-pointer mt-0.5 sm:mt-1 lg:mt-2 relative inline-flex items-center justify-center p-0.5 mb-0.5 sm:mb-1 lg:mb-2 me-0.5 sm:me-1 lg:me-2 overflow-hidden text-[9px] sm:text-[10px] lg:text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              data-product="{{ i.product_name }}"
+  data-price="{{ i.price }}"
+  >
+  <span class="relative p-1 sm:px-5 sm:py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-sm group-hover:bg-transparent group-hover:dark:bg-transparent">
+   Shop Now
+  </span> 
+</button>
+
+
+             </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+
+{% endblock  %}
+ {% block javascript %}
+<script>
+  (function(){
+    const MOBILE_LIMIT = 56;
+  const DESKTOP_LIMIT = 82;
+  const mq = window.matchMedia('(min-width: 640px)');
+
+  function getLimit() {
+    return mq.matches ? DESKTOP_LIMIT : MOBILE_LIMIT;
+  }
+
+  function truncateText(text, limit) {
+    if (!text) return '';
+    if (text.length <= limit) return text;
+    // trim safely at last space to avoid cutting in middle of word (optional)
+    let substr = text.slice(0, limit);
+    const lastSpace = substr.lastIndexOf(' ');
+    if (lastSpace > Math.floor(limit * 0.6)) { // if reasonable space found
+      substr = substr.slice(0, lastSpace);
+    }
+    return substr + '...';
+  }
+
+  function applyTruncation() {
+    const limit = getLimit();
+    document.querySelectorAll('.desc-text').forEach(el => {
+      const full = el.dataset.desc || '';
+      // set using textContent to avoid XSS
+      el.textContent = truncateText(full.trim(), limit);
+    });
+  }
+// debounce helper
+  function debounce(fn, wait) {
+    let t;
+    return function(...args) {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), wait);
+    };
+  }
+
+  // run on load
+  document.addEventListener('DOMContentLoaded', applyTruncation);
+
+  // run on resize (debounced)
+  window.addEventListener('resize', debounce(applyTruncation, 120));
+
+  // also listen to media query changes (faster than resize sometimes)
+  try {
+    mq.addEventListener('change', applyTruncation);
+  } catch(e) {
+    // older browsers fallback
+    mq.addListener(applyTruncation);
+  }
+})();
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const productCards = document.querySelectorAll(".star-wrapper");
+
+    productCards.forEach(function (starWrapper) {
+      const ratingText = starWrapper.nextElementSibling?.textContent?.trim();
+      const rating = parseFloat(ratingText);
+
+      const stars = starWrapper.querySelectorAll("svg");
+
+      stars.forEach((star, index) => {
+        star.classList.remove("text-yellow-300", "text-gray-200");
+        if (rating >= index + 1) {
+          star.classList.add("text-yellow-300");
+        } else {
+          star.classList.add("text-gray-200");
+        }
+      });
+    });
+  });
+{% comment %} shop cart Logic {% endcomment %}
+
+ console.log("working...");
+if(localStorage.getItem('cart')== null){
+  var cart = {};
+}
+else{
+  cart=JSON.parse(localStorage.getItem('cart'));
+}
+$('.cart').click(function(){
+  console.log("clicked");
+  var idstr = this.id.toString();
+  console.log(idstr);
+  if(cart[idstr]!= undefined){
+    cart[idstr]+=1;
+  }
+  else{
+    cart[idstr]=1;
+  }
+  console.log(cart);
+  localStorage.setItem('cart',JSON.stringify(cart));
+});
+
+{% comment %} whatsapp {% endcomment %}
+
+  $(document).ready(function () {
+    $(".whatsapp-btn").click(function () {
+      var product = $(this).data("product");
+      var price = $(this).data("price");
+
+      var message = `Asslam-o-Alaikum! I want to buy this product:\n\nName: *${product}*\nPrice: Rs. *${price}*\n\nPlease confirm availability.`;
+      var phone = "923323550131"; // 🔁 Replace with your WhatsApp number (without +)
+
+      var url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+  });
+
+
+</script>
+
+<script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+
+
+{% endblock %} 

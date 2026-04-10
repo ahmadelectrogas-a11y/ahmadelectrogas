@@ -1,0 +1,367 @@
+{% extends "base.html" %}
+{% block title %} {{ item.product_name }} | Ahmad ElectroGas {% endblock %}
+{% block content %}
+<!-- hide until Alpine has initialized to avoid flash -->
+<style>
+  [x-cloak] { display: none !important; }
+</style>
+
+<!-- root: Alpine controls the show state -->
+<div
+  x-data="{ show: false }"
+  x-init="setTimeout(()=> show = true, 120)"
+  x-cloak
+  class="md:max-w-[1270px] mx-auto px-1.5"
+>
+  <div class=" my-1.5 sm:my-4">
+    <div
+      class="flex gap-1 sm:gap-3 md:gap-6 flex-col md:flex-row md:justify-normal p-1.5 sm:p-4"
+    >
+      <!-- LEFT COLUMN (text & controls) -->
+      <div
+        class="md:w-1/2 w-full order-2 "
+        x-show="show"
+        x-transition:enter="transition transform ease-out duration-700"
+        x-transition:enter-start="opacity-0 -translate-y-4"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        style="transition-delay: 150ms;"
+      >
+        <div class="min-h-64">
+          <h1
+            class="font-bold text-3xl sm:text-4xl mb-4 px-2 sm:px-0 text-[#0B2540]"
+            x-show="show"
+            x-transition:enter="transition transform ease-out duration-900"
+            x-transition:enter-start="opacity-0 -translate-y-3"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            style="transition-delay: 150ms;"
+          >
+            {{item.product_name}}:
+          </h1>
+
+          <div x-data="{ expanded: false }" class="px-5 text-lg sm:text-xl">
+            <p
+              :class="expanded ? 'max-h-full' : 'max-h-[10.5rem] overflow-hidden'"
+              class="transition-all duration-400"
+              x-show="show"
+              x-transition:enter="transition opacity ease-out duration-700"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100"
+              style="transition-delay: 300ms;"
+            >
+              {{ item.desc }}
+            </p>
+            <button
+              @click="expanded = !expanded"
+              class="text-blue-600 mt-2 focus:outline-none cursor-pointer hover:underline"
+            >
+              <span x-show="!expanded">Read more</span>
+              <span x-show="expanded">Show less</span>
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="btn flex justify-between sm:mt-6 px-5 p-2 flex-col lg:flex-row mx-auto"
+          x-show="show"
+          x-transition:enter="transition transform ease-out duration-700"
+          x-transition:enter-start="opacity-0 translate-y-3"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          style="transition-delay: 360ms;"
+        >
+          <span
+            id="totalPrice{{ item.id }}"
+            class="text-5xl sm:text-4xl text-center font-bold text-green-900"
+          >
+            <!-- JS will populate here -->
+          </span>
+
+        <!-- Each item's quantity control -->
+       <div
+            id="divpr{{ item.id }}"
+            class="divpr mx-auto sm:my-[3px] my-[30px]"
+            data-product="{{ item.product_name }}"
+            data-price="{{ item.price }}"
+          >
+            <span id="pr{{ item.id }}" class="my-2">
+              <!-- Buttons will be rendered by JS -->
+            </span>
+          </div>
+
+          <button
+            type="button"
+            class="text-lg sm:text-sm shop-now-btn mt-1 flex justify-center cursor-pointer text-white  bg-[#31d325] hover:bg-[#25d365] focus:ring-2 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg px-2 sm:px-5 py-2.5 text-center items-center dark:focus:ring-[#1da1f2]/55 mb-2"
+            data-id="{{ item.id }}"
+            x-show="show"
+            x-transition:enter="transition transform ease-out duration-700"
+            x-transition:enter-start="opacity-0 translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            style="transition-delay: 420ms;"
+          >
+          <svg
+           <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z"
+              clip-rule="evenodd"
+            />
+            <path
+              fill="currentColor"
+              d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013.4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z"
+            />
+          </svg>
+
+          Order Now Via Whatsapp
+        </button>
+      </div>
+      <div
+          class="px-5"
+          style="vertical-align: bottom; width: 96%; height: 326px"
+          x-show="show"
+          x-transition:enter="transition opacity ease-out duration-700"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          style="transition-delay: 480ms;"
+        >
+          <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-width="" data-numposts="5"></div>
+        </div>
+      </div>
+
+    <div class="order-1 ">
+        <div class="flex flex-col p-3 ">
+          <div
+            class="relative group sm:max-w-[450px] mx-auto rounded-2xl overflow-hidden"
+            x-show="show"
+            x-transition:enter="transition transform ease-out duration-800"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            style="transition-delay: 220ms;"
+          >
+            <a href="/media/{{item.image}}" class="block">
+              <img class="rounded-2xl w-full sm:max-w-[450px] border border-black h-auto mx-auto" src="/media/{{item.image}}" alt="" />
+              <div class="absolute inset-0 bg-[#e20219a1] opacity-70 flex items-center justify-center
+                          translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out">
+                <!-- Camera Icon -->     
+         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke-width="2" stroke="currentColor"
+                     class="w-12 h-12 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h3l2-3h8l2 3h3v13H3V7z" />
+                  <circle cx="12" cy="13" r="4" />
+                </svg>
+              </div>
+            </a>
+          </div>
+        <div style="
+        margin-top:10px;
+        " 
+        >
+          {% if "/products/kitchen/" in request.path %}
+          <div
+            class="fb-like "
+            data-href="http://127.0.0.1:8000/products/kitchen/{{ item.id }}/"
+            data-width="314"
+            data-layout="standard"
+            data-show-faces="true"
+            data-action="like"
+            data-size="large"
+            data-share="true"
+          ></div>
+          {% elif "/products/gyser/ in request.path" %}
+          <div
+            class="fb-like "
+            data-href="http://127.0.0.1:8000/products/gyser/{{ item.id }}/"
+            data-width="314"
+            data-layout="standard"
+            data-show-faces="true"
+            data-action="like"
+            data-size="large"
+            data-share="true"
+          ></div>
+          {% elif "/products/valves/ in request.path" %}
+          <div
+            class="fb-like "
+            data-href="http://127.0.0.1:8000/products/valves/{{ item.id }}/"
+            data-width="314"
+            data-layout="standard"
+            data-show-faces="true"
+            data-action="like"
+            data-size="large"
+            data-share="true"
+          ></div>
+          {% elif "/products/accessories/ in request.path" %}
+          <div
+            class="fb-like "
+            data-href="http://127.0.0.1:8000/products/accessories/{{ item.id }}/"
+            data-width="314"
+            data-layout="standard"
+            data-show-faces="true"
+            data-action="like"
+            data-size="large"
+            data-share="true"
+          ></div>
+          {% elif "/products/regulator/ in request.path" %}
+          <div
+            class="fb-like "
+            data-href="http://127.0.0.1:8000/products/regulator/{{ item.id }}/"
+            data-width="314"
+            data-layout="standard"
+            data-show-faces="true"
+            data-action="like"
+            data-size="large"
+            data-share="true"
+          ></div>
+          {% elif "/products/discount/ in request.path" %}
+          <div
+            class="fb-like "
+            data-href="http://127.0.0.1:8000/products/discount/{{ item.id }}/"
+            data-width="314"
+            data-layout="standard"
+            data-show-faces="true"
+            data-action="like"
+            data-size="large"
+            data-share="true"
+          ></div>
+          {% else %}
+          <div
+            class="fb-like "
+            data-href="http://127.0.0.1:8000/products/product/{{ item.id }}/"
+            data-width="314"
+            data-layout="standard"
+            data-show-faces="true"
+            data-action="like"
+            data-size="large"
+            data-share="true"
+          ></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+<div>
+</div>
+{% endblock %} {% block javascript %}
+<script>
+  {% comment %} price logic {% endcomment %}
+
+  // Recompute and render “Rs. price × qty = total”
+  function updateDisplay(itemId) {
+    const div = document.getElementById("divpr" + itemId);
+    const price = parseFloat(div.dataset.price) || 0;
+    // if cart has this key, use it (even if 0). Otherwise default to 1.
+    const qty = (itemId in cart) ? Number(cart[itemId]) : 1;
+    const total = (price * qty).toFixed(0);
+
+    const valEl = document.getElementById("val" + itemId);
+    const totalEl = document.getElementById("totalPrice" + itemId);
+    if (valEl) valEl.innerText = qty;
+    if (totalEl) totalEl.innerText = `Rs. ${total}`;
+  }
+
+  // load cart from localStorage (keep other items in cart)
+  let cart = {};
+  const raw = localStorage.getItem('cart');
+  if (raw) {
+    try { cart = JSON.parse(raw) || {}; } catch(e) { cart = {}; }
+  }
+
+  // ====== Auto-render quantity controls for all items shown on the page ======
+  // We'll update cart for only the products that are present on THIS page to 1.
+  // Collect changes and write localStorage once at the end.
+  let changed = false;
+  document.querySelectorAll(".divpr").forEach(div => {
+    const itemId = String(div.id.replace("divpr", ""));
+    // Force the product(s) on this page to start at 1 on every reload:
+    // (this preserves other cart entries)
+    if (!(itemId in cart) || cart[itemId] !== 1) {
+      cart[itemId] = 1;
+      changed = true;
+    }
+
+    const pr = document.getElementById("pr" + itemId);
+    if (pr) {
+      pr.innerHTML = `
+        <button id="minus${itemId}" class="cursor-pointer text-white bg-[#1877f2] focus:ring-2 focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm px-5 py-2.5 minus">
+          <!-- minus svg -->
+          <svg height="18" class="invert" viewBox="0 0 64 64" width="10"><path d="M64,37.313c0,1.657-1.343,3-3,3H3c-1.657,0-3-1.343-3-3V26.688c0-1.657,1.343-3,3-3h58c1.657,0,3,1.343,3,3V37.313z"/></svg>
+        </button>
+        <span id="val${itemId}" class="text-lg font-semibold text-black px-2">${cart[itemId]}</span>
+        <button id="plus${itemId}" class="cursor-pointer text-white bg-[#1877f2] focus:ring-2 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 plus">
+          <!-- plus svg -->
+          <svg fill="none" height="18" class="invert" viewBox="0 0 16 16" width="10"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z" fill="#030708"/></svg>
+        </button>
+      `;
+      // render the price display using the just-set cart value
+      updateDisplay(itemId);
+    }
+  });
+
+  // save cart back if changed
+  if (changed) {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  // ====== Plus / Minus Functionality ======
+  $('.divpr').on("click", "button.minus", function () {
+    const itemId = this.id.slice(5);
+    // allow decreasing to 0 if user wants, but you can prevent if needed:
+    if (cart[itemId] > 0) {
+      cart[itemId]--;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateDisplay(itemId);
+    }
+  });
+
+  $('.divpr').on("click", "button.plus", function () {
+    const itemId = this.id.slice(4);
+    cart[itemId] = (Number(cart[itemId]) || 0) + 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateDisplay(itemId);
+  });
+
+  // ====== Whatsapp (same as your code) ======
+  $(document).ready(function () {
+    $(".shop-now-btn").click(function () {
+      const itemId = $(this).data("id").toString();
+      const $prodDiv = $(`#divpr${itemId}`);
+      const product  = $prodDiv.data("product");
+      const price    = parseFloat($prodDiv.data("price"));
+      const quantity = (JSON.parse(localStorage.getItem("cart") || "{}"))[itemId] || 0;
+
+      if (!product || isNaN(price)) {
+        alert("Product data missing. Please try again.");
+        console.error("Missing data: ", { product, price });
+        return;
+      }
+
+      if (quantity <= 0) {
+        alert("Please select at least 1 quantity before ordering.");
+        return;
+      }
+
+      const total = (price * quantity).toFixed(0);
+      const message = 
+        `Assalam-o-Alaikum! I want to buy this product:\n\n` +
+        `• Name: *${product}*\n` +
+        `• Quantity: *${quantity}*\n` +
+        `• Total Price: Rs. *${total}*\n\n` +
+        `Please confirm availability.`;
+
+      const phone = "923356599132";
+      const url   = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+  
+
+});
+
+</script>
+
+{% endblock %}
